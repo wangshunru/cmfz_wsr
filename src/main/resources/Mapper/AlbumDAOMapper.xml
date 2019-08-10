@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.AlbumDAO">
+
+    <sql id="sql">
+        id,title,author,score,cover_img,broadcast,number,content,pub_date
+    </sql>
+    <select id="selectAll" resultType="Album">
+        SELECT  <include refid="sql"/> from album limit #{start},#{rows}
+    </select>
+    <select id="selectCount" resultType="int">
+        SELECT count(*) from album
+    </select>
+    <insert id="insert" parameterType="Album">
+        INSERT into album(id,title,author,score,cover_img,broadcast,number,content,pub_date)
+        VALUES (#{id},#{title},#{author},#{score},#{cover_img},#{broadcast},#{number},#{content},#{pub_date})
+    </insert>
+    <update id="update" parameterType="Album">
+        UPDATE album
+        <set>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="author != null">
+                author = #{author},
+            </if>
+            <if test="score != null">
+                score = #{score},
+            </if>
+            <if test="cover_img != ''">
+                cover_img = #{cover_img},
+            </if>
+            <if test="broadcast != null">
+                broadcast = #{broadcast},
+            </if>
+            <if test="number != null">
+                number = #{number},
+            </if>
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="pub_date != null">
+                pub_date = #{pub_date}
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+    <delete id="delete" parameterType="java.lang.String">
+        DELETE from album WHERE id = #{id}
+    </delete>
+    <select id="select" resultType="Album">
+        SELECT <include refid="sql"/> from album
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+
